@@ -2,7 +2,6 @@
 #include <cstring>
 using namespace std;
 
-#if 0
 class Array
 {
 private:
@@ -86,7 +85,7 @@ public:
         };
         return -1;
     }
-    void show() const// const表明这个函数是成员变量函数，不能修改对象的成员变量
+    void show() const// const 表明他不会
     {
         for (int i = 0; i < mCur; i++)
         {
@@ -119,39 +118,4 @@ int main()
     arr.show();
 
     
-}
-#endif
-#if 0
-// 1.逆序字符串
-void Reverse(char arr[], int size)
-{
-    char *p = arr;
-    char *q = arr + size - 1;
-    while (p < q)
-    {
-        char ch = *p;
-        *p = *q;
-        *q = ch;
-        p++;
-        q--;
-    }
-}
-int main(){
-    char arr[] = "hello world";
-    Reverse(arr,strlen(arr));
-    cout<<arr<<endl;
-}
-#endif
-
-// 2.整形数组，把偶数调整到数组左边，奇数调整到数组右边
-void AdjustArray(int arr[], int size)
-{
-}
-int main()
-{
-    int arr[10] = {0};
-    srand(time(0));
-    for(int i=0;i<10;i++){
-        arr[i] = rand()%100;
-    } 
 }

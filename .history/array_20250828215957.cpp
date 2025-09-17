@@ -2,7 +2,6 @@
 #include <cstring>
 using namespace std;
 
-#if 0
 class Array
 {
 private:
@@ -12,7 +11,7 @@ private:
     void expand(int size) // 内部数组扩容接口 -- 如果扩容成两倍，那你就需要先开辟一块两倍容量的内存，然后把值拷贝进去，再把旧的数组内存释放掉
     {
         int *p = new int[size];
-        memcpy(p, mpArr, sizeof(int) * mCur); // memcpy的用法：目标内存地址，原始地址，要拷贝的“字节数”
+        memcpy(p, mpArr, sizeof(int) * mCap); // memcpy的用法：目标内存地址，原始地址，要拷贝的“字节数”
         delete[] mpArr;
         mpArr = p;
         mCap = size;
@@ -48,51 +47,50 @@ public:
     };
     void insert(int pos, int val) // 按位置增加元素
     {
-        if (pos < 0 || pos > mCur) // 先要对参数合法性进行检查
+        if (pos < 0 || pos > mCap) // 先要对参数合法性进行检查
         {
             return;
         }
-        if (mCur == mCap)
+        if (mCur == pos)
         {
-            expand(2 * mCap);
+            expand(2 * mCur);
+            for (int i = mCur - 1; i >= pos; i--)
+            {
+                mpArr[i + 1] = mpArr[i];
+            }
+            mpArr[pos] = val;
+            mCur += 1;
         }
-        for (int i = mCur - 1; i >= pos; i--)
-        {
-            mpArr[i + 1] = mpArr[i];
-        }
-        mpArr[pos] = val;
-        mCur += 1;
     };
     void erase(int pos) // 按位置删除
     {
-        if (pos < 0 || pos > mCur)
+        if (pos < 0 || pos > mCap)
         {
             return;
         }
-        for (int i = pos; i < mCur - 1; i++)
+        for (int i = pos + 1; i <= mCur - 1; i++)
         {
-            mpArr[i] = mpArr[i + 1];
+            mpArr[pos - 1] = mpArr[pos];
         }
         mCur--;
     };
     int find(int val) // 元素查询
     {
-        for (int i = 0; i < mCur; i++)
+        for (int i = 0; i <= mCur; i++)
         {
             if (mpArr[i] == val)
             {
                 return i;
             }
+            return -1;
         };
-        return -1;
     }
-    void show() const// const表明这个函数是成员变量函数，不能修改对象的成员变量
+    void show()const
     {
-        for (int i = 0; i < mCur; i++)
+        for (int i = 0; i <= mCur; i++)
         {
-            cout << mpArr[i] << " ";
+            cout<<mpArr[i]<<"";
         }
-        cout << endl;
     }
 };
 
@@ -107,51 +105,4 @@ int main()
     arr.show();
     arr.pop_back();
     arr.show();
-    arr.push_back(15);
-    arr.insert(0,1);
-    arr.show();
-
-    int pos = arr.find(1);
-    if (pos != -1)
-    {
-        arr.erase(pos);
-    }
-    arr.show();
-
-    
-}
-#endif
-#if 0
-// 1.逆序字符串
-void Reverse(char arr[], int size)
-{
-    char *p = arr;
-    char *q = arr + size - 1;
-    while (p < q)
-    {
-        char ch = *p;
-        *p = *q;
-        *q = ch;
-        p++;
-        q--;
-    }
-}
-int main(){
-    char arr[] = "hello world";
-    Reverse(arr,strlen(arr));
-    cout<<arr<<endl;
-}
-#endif
-
-// 2.整形数组，把偶数调整到数组左边，奇数调整到数组右边
-void AdjustArray(int arr[], int size)
-{
-}
-int main()
-{
-    int arr[10] = {0};
-    srand(time(0));
-    for(int i=0;i<10;i++){
-        arr[i] = rand()%100;
-    } 
 }

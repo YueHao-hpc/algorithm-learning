@@ -121,8 +121,8 @@ int main()
     
 }
 #endif
-#if 0
-// 1.逆序字符串
+
+// 逆序字符串
 void Reverse(char arr[], int size)
 {
     char *p = arr;
@@ -132,26 +132,5 @@ void Reverse(char arr[], int size)
         char ch = *p;
         *p = *q;
         *q = ch;
-        p++;
-        q--;
     }
-}
-int main(){
-    char arr[] = "hello world";
-    Reverse(arr,strlen(arr));
-    cout<<arr<<endl;
-}
-#endif
-
-// 2.整形数组，把偶数调整到数组左边，奇数调整到数组右边
-void AdjustArray(int arr[], int size)
-{
-}
-int main()
-{
-    int arr[10] = {0};
-    srand(time(0));
-    for(int i=0;i<10;i++){
-        arr[i] = rand()%100;
-    } 
 }

@@ -151,7 +151,5 @@ int main()
 {
     int arr[10] = {0};
     srand(time(0));
-    for(int i=0;i<10;i++){
-        arr[i] = rand()%100;
-    } 
+    for(int i=0;i<10;i++) 
 }
